@@ -1,4 +1,4 @@
-// microservice1/src/models/User.js
+//microservice1/src/models/User.js
 
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');

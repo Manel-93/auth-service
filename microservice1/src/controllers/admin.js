@@ -1,6 +1,6 @@
 // microservice1/src/controllers/admin.js
 
-const User = require('../models/User');
+const User = require('../models/user');
 
 // @desc    Get all users (Admin only)
 // @route   GET /admin/users

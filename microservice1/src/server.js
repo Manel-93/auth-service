@@ -4,27 +4,27 @@ const express = require('express');
 const dotenv = require('dotenv');
 const connectDB = require('./config/database');
 const authRoutes = require('./routes/auth');
-const adminRoutes = require('./routes/admin'); // Pour les routes ADMIN
+const adminRoutes = require('./routes/admin'); 
 
-// Charger les variables d'environnement du fichier .env
+// 1. Charger les variables d'environnement
 dotenv.config();
 
-// Connexion à la base de données
+// 2. Connexion à la base de données MongoDB
 connectDB();
 
 const app = express();
 
-// Middleware intégré pour parser le JSON
+// 🚨 CORRECTION CRUCIALE : Appeler la fonction express.json()
+// La ligne DOIT inclure les parenthèses () pour que le middleware soit activé
 app.use(express.json());
 
-// Routes
+// Routes (doivent venir APRÈS le middleware JSON)
 app.use('/auth', authRoutes);
 app.use('/admin', adminRoutes);
-// Optionnel: Route pour modifier le rôle, peut être gérée dans adminRoutes ou userRoutes séparées
-// app.use('/users', userRoutes);
+
 
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
 });

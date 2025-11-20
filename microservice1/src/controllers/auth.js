@@ -1,6 +1,6 @@
 // microservice1/src/controllers/auth.js
 
-const User = require('../models/User');
+const User = require('../models/user'); // Utilisez la majuscule pour 'User'
 const jwt = require('jsonwebtoken');
 
 // Fonction utilitaire pour générer le token JWT
