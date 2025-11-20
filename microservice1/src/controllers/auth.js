@@ -10,9 +10,6 @@ const generateToken = (id) => {
   });
 };
 
-// @desc    Register user
-// @route   POST /auth/register
-// @access  Public
 exports.registerUser = async (req, res) => {
   const { email, username, password } = req.body;
 
@@ -24,14 +21,14 @@ exports.registerUser = async (req, res) => {
       return res.status(400).json({ message: 'User already exists' });
     }
 
-    // 2. Créer un nouvel utilisateur (le hachage du mot de passe se fait dans le middleware du modèle)
+
     const user = await User.create({
       email,
       username,
       password,
     });
 
-    // 3. Répondre avec les données de l'utilisateur et un token
+
     res.status(201).json({
       _id: user._id,
       username: user.username,
@@ -44,19 +41,17 @@ exports.registerUser = async (req, res) => {
   }
 };
 
-// @desc    Authenticate user & get token
-// @route   POST /auth/login
-// @access  Public
+
 exports.loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // 1. Trouver l'utilisateur par email
+
     const user = await User.findOne({ email });
 
-    // 2. Vérifier l'utilisateur et le mot de passe
+  
     if (user && (await user.matchPassword(password))) {
-      // 3. Répondre avec les données de l'utilisateur et un token
+ 
       res.json({
         _id: user._id,
         username: user.username,
