@@ -1,5 +1,3 @@
-// microservice1/src/controllers/admin.js
-
 const User = require('../models/user');
 
 // @desc    Get all users (Admin only)
@@ -22,6 +20,7 @@ exports.updateUserRole = async (req, res) => {
   const { role } = req.body;
   const { id } = req.params;
 
+  // S'assurer que le rôle est valide
   if (!['USER', 'EXPERT', 'ADMIN'].includes(role)) {
     return res.status(400).json({ message: 'Invalid role provided' });
   }
@@ -47,3 +46,6 @@ exports.updateUserRole = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+
+

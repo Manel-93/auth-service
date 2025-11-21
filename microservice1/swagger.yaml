@@ -1,0 +1,127 @@
+
+
+openapi: 3.0.0
+info:
+  title: Microservice d'Authentification (Auth-Service)
+  version: 1.0.0
+  description: API pour la gestion des utilisateurs, authentification et rôles (USER, EXPERT, ADMIN).
+
+servers:
+  - url: http://localhost:3000
+    description: Serveur de Développement Local
+
+paths:
+  /auth/register:
+    post:
+      tags:
+        - Authentification
+      summary: Inscription d'un nouvel utilisateur (crée un rôle USER)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username: { type: string, example: nouvel_utilisateur }
+                email: { type: string, example: test.user@example.com }
+                password: { type: string, example: PwdSécurisé123 }
+      responses:
+        '201':
+          description: Utilisateur créé avec succès, retourne l'ID et le JWT
+        '400':
+          description: Requête invalide (Email ou Nom d'utilisateur déjà utilisé)
+
+  /auth/login:
+    post:
+      tags:
+        - Authentification
+      summary: Connexion et génération du JWT
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: { type: string, example: test.user@example.com }
+                password: { type: string, example: PwdSécurisé123 }
+      responses:
+        '200':
+          description: Connexion réussie, retourne le token JWT
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token: { type: string, description: JWT d'accès }
+        '401':
+          description: Non autorisé (Email ou mot de passe invalide)
+
+  /auth/me:
+    get:
+      tags:
+        - Utilisateur
+      summary: Récupérer les données de l'utilisateur connecté (Protégé)
+      security:
+        - bearerAuth: [] # <-- Indique que cette route nécessite un Bearer Token
+      responses:
+        '200':
+          description: Retourne les informations de l'utilisateur (sans le hash du mot de passe)
+        '401':
+          description: Non autorisé (Token manquant ou invalide)
+          
+  /admin/users:
+    get:
+      tags:
+        - Administration
+      summary: Route réservée - Lister tous les utilisateurs (Nécessite rôle ADMIN)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Liste des utilisateurs
+        '401':
+          description: Non autorisé (Token manquant ou invalide)
+        '403':
+          description: Accès refusé (Rôle non ADMIN)
+
+  /users/{id}/role:
+    patch:
+      tags:
+        - Administration
+      summary: Route réservée - Modifier le rôle d'un utilisateur par son ID (Nécessite rôle ADMIN)
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: ID de l'utilisateur dont le rôle doit être modifié
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                role: 
+                  type: string
+                  enum: [USER, EXPERT, ADMIN]
+                  example: EXPERT
+      responses:
+        '200':
+          description: Rôle de l'utilisateur mis à jour
+        '403':
+          description: Accès refusé (Rôle non ADMIN)
+        '404':
+          description: Utilisateur non trouvé
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT # Permet l'envoi du token dans l'en-tête Authorization
