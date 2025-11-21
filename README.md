@@ -20,3 +20,49 @@ POST/auth/loginAucun : Authentifier l'utilisateur et retourner un JWT.
 GET/auth/me : Récupérer les informations de l'utilisateur.
 GET/admin/users : Lister tous les utilisateurs du système.
 PATCH/users/:id/role : Modifier le rôle d'un utilisateur spécifié par son identifiant.
+
+Microservice2: 
+Un microservice Node.js simple pour gérer les observations d'espèces utilisant Express et MongoDB.
+## Description
+Ce microservice permet aux utilisateurs de créer, consulter et valider des observations de différentes espèces. Il inclut un middleware d'authentification et une limitation de taux pour empêcher les soumissions en double dans un court laps de temps.
+## Installation
+1. Naviguez vers le répertoire microservice2 :
+   ```
+   cd microservice2
+   ```
+2. Installez les dépendances :
+   ```
+   npm install
+   ```
+3. Créez un fichier `.env` avec les variables suivantes :
+   ```
+   MONGODB_URI=votre_chaine_de_connexion_mongodb
+   PORT=5000
+   JWT_SECRET=votre_secret_jwt
+   ```
+## Utilisation
+Pour démarrer le serveur de développement :
+```
+npm run dev
+```
+Le service tournera sur `http://localhost:5000` par défaut.
+## Points de terminaison API
+- `POST /api/species` - Créer une nouvelle espèce (nécessite une authentification)
+- `GET /api/species` - Obtenir toutes les espèces
+- `GET /api/species/:id` - Obtenir une espèce par ID
+- `GET /api/species/:id/observations` - Obtenir les observations pour une espèce
+- `POST /api/observations` - Créer une nouvelle observation (nécessite une authentification)
+- `POST /api/observations/:id/validate` - Valider une observation (nécessite une authentification)
+- `POST /api/observations/:id/reject` - Rejeter une observation (nécessite une authentification)
+## Dépendances
+- Express : Framework web
+- Mongoose : Modélisation d'objets MongoDB
+- bcryptjs : Hachage de mots de passe
+- jsonwebtoken : Authentification JWT
+- dotenv : Gestion des variables d'environnement
+## Développement
+Utilise Nodemon pour les redémarrages automatiques pendant le développement.
+
+
+
+
