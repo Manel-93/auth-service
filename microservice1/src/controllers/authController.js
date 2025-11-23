@@ -1,4 +1,4 @@
-const User = require('../models/user'); // Utilisez la majuscule pour 'User'
+const User = require('../models/UserModel'); // Utilisez la majuscule pour 'User'
 const jwt = require('jsonwebtoken');
 
 // Fonction utilitaire pour générer le token JWT

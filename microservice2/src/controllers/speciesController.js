@@ -1,4 +1,4 @@
-const Species = require('../models/species');
+const Species = require('../models/speciesModel');
 
 const createSpecies = async (req, res) => {
   try {

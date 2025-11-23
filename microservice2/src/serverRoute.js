@@ -5,6 +5,9 @@ const dotenv = require('dotenv');
 // Charger les variables d'environnement le plus tôt possible
 dotenv.config();
 
+// Enregistrer les modèles partagés (User) pour que les refs/populate fonctionnent
+require('./models/userModel');
+
 const speciesRoutes = require('./routes/speciesRoutes');
 const observationRoutes = require('./routes/observationRoutes');
 

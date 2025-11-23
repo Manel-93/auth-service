@@ -3,8 +3,8 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const connectDB = require('./config/database');
-const authRoutes = require('./routes/auth');
-const adminRoutes = require('./routes/admin'); 
+const authRoutes = require('./routes/authRoute');
+const adminRoutes = require('./routes/adminRoute'); 
 
 // 1. Charger les variables d'environnement
 dotenv.config();

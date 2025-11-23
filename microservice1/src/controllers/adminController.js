@@ -1,4 +1,4 @@
-const User = require('../models/user');
+const User = require('../models/UserModel');
 
 // @desc    Get all users (Admin only)
 // @route   GET /admin/users

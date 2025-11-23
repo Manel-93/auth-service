@@ -4,8 +4,8 @@ const {
   getObservationsBySpecies,
   validateObservation,
   rejectObservation
-} = require('../controllers/observation');
-const { protect } = require('../middleware/auth');
+} = require('../controllers/observationController');
+const { protect } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 

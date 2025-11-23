@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { protect } = require('../middleware/auth');
-const { createSpecies, getAllSpecies, getSpeciesById } = require('../controllers/species');
+const { protect } = require('../middleware/authMiddleware');
+const { createSpecies, getAllSpecies, getSpeciesById } = require('../controllers/speciesController');
 
 
 // Routes pour les espèces

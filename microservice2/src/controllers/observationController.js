@@ -1,5 +1,5 @@
-const Observation = require('../models/observation');
-const Species = require('../models/species');
+const Observation = require('../models/observationModel');
+const Species = require('../models/speciesModel');
 
 // @desc    Créer une nouvelle observation
 // @route   POST /api/observations
@@ -26,7 +26,7 @@ const createObservation = async (req, res) => {
       createdAt: { $gte: fiveMinutesAgo }
     });
     if (recentObservation) {
-      return res.status(400).json({ message: 'Cannot submit another observation for the same species within 5 minutes' });
+      return res.status(400).json({ message: 'Vous ne pouvez pas soumettre une autre observation pour la même espèce dans les 5 minutes' });
     }
 
     const observation = await Observation.create({
@@ -64,7 +64,7 @@ const validateObservation = async (req, res) => {
     }
 
     if (observation.authorId.toString() === req.user.id) {
-      return res.status(403).json({ message: 'Cannot validate your own observation' });
+      return res.status(403).json({ message: 'Vous ne pouvez rejeter votre propre observation' });
     }
 
     observation.status = 'VALIDATED';
@@ -89,7 +89,7 @@ const rejectObservation = async (req, res) => {
     }
 
     if (observation.authorId.toString() === req.user.id) {
-      return res.status(403).json({ message: 'Cannot reject your own observation' });
+      return res.status(403).json({ message: 'Vous ne pouvez rejeter votre propre observation' });
     }
 
     observation.status = 'REJECTED';

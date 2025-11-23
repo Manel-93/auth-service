@@ -1,6 +1,6 @@
 const express = require('express');
-const { getAllUsers, updateUserRole } = require('../controllers/admin');
-const { protect, authorize } = require('../middleware/auth');
+const { getAllUsers, updateUserRole } = require('../controllers/adminController');
+const { protect, authorize } = require('../middleware/authMiddleware');
 const router = express.Router();
 
 // Middleware de protection et d'autorisation pour toutes les routes Admin

@@ -6,7 +6,7 @@ const {
     getMe,
     getAllUsers,
     updateUserRole,
-} = require('../controllers/auth');
+} = require('../controllers/authController');
 const { protect, authorize } = require('../services/authMiddleware');
 
 const router = express.Router();
